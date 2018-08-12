@@ -1,0 +1,45 @@
+.songs-list-item_container {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.songs-list-item_header-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.songs-list-item_subheader {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.songs-list-item_container .songs-list-item_name {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.333;
+    letter-spacing: -0.02rem;
+    margin-bottom: 6px;
+    /* This is a link, but avoid changing the color unless hovered or focused */
+    color: currentColor;
+}
+
+.songs-list-item_container .songs-list-item_name:hover,
+.songs-list-item_container .songs-list-item_name:focus {
+    color: #005b83;
+}
+
+@media only screen and (max-width: 600px) {
+    .songs-list-item_container {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .songs-list-item_container {
+        flex-direction: column;
+    }
+}
