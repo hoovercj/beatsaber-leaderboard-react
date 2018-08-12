@@ -13,7 +13,7 @@ import 'src/styles/colors.css';
 import 'src/styles/fonts.css';
 
 import { IAppInfo } from 'src/models/copyright-info';
-import { SongsPage } from 'src/pages/songs';
+import { SongsPage } from 'src/pages/songs-page';
 import { ScoreProvider } from 'src/services/score-provider';
 
 interface IAppProps {

@@ -4,6 +4,7 @@ import { KpiData } from 'src/components/kpi';
 import { SummaryCardProps } from 'src/components/summary-card/index';
 import { SummaryList } from 'src/components/summary-list';
 import { SongLeaderboard } from 'src/lib/parser';
+import { titleArtistString } from 'src/utils/string-utils';
 
 export interface SongsListProps {
     leaderboards: SongLeaderboard[];
@@ -23,9 +24,7 @@ export class SongsList extends React.Component<SongsListProps> {
         return this.props.leaderboards.map(leaderboard => {
             const { title, artist, author, difficultyLeaderboards } = leaderboard;
 
-            const titleArtist = artist ?
-                `${title} by ${artist}` :
-                title;
+            const titleArtist = titleArtistString(title, artist);
 
             const kpis: KpiData[] = Object.keys(difficultyLeaderboards)
                 .map(key => difficultyLeaderboards[key])

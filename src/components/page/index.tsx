@@ -7,13 +7,14 @@ import 'src/styles/fonts.css';
 import './index.css';
 
 import { PageFooter } from 'src/components/page-footer';
+import { PageHeader } from 'src/components/page-header';
 import { IAppInfo } from 'src/models/copyright-info';
 
 export interface PageProps {
     applicationInfo: IAppInfo;
 }
 
-export abstract class Page<T extends PageProps, S = {}> extends React.Component<T, S> {
+export abstract class Page<T extends PageProps = PageProps, S = {}> extends React.Component<T, S> {
     public render() {
         return (
             <div className={this.containerClass()}>
@@ -24,7 +25,11 @@ export abstract class Page<T extends PageProps, S = {}> extends React.Component<
         );
     }
 
-    protected abstract renderHeader(): JSX.Element | JSX.Element[];
+    protected renderHeader() {
+        return (
+            <PageHeader pageTitle={this.props.applicationInfo.applicationName} />
+        );
+    }
 
     protected abstract renderContent(): JSX.Element | JSX.Element[];
 
