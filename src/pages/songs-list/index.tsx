@@ -8,6 +8,7 @@ import { titleArtistString } from 'src/utils/string-utils';
 
 export interface SongsListProps {
     leaderboards: SongLeaderboard[];
+    route?: string;
 }
 
 export class SongsList extends React.Component<SongsListProps> {
@@ -22,7 +23,7 @@ export class SongsList extends React.Component<SongsListProps> {
 
     private get summaryItems(): SummaryCardProps[] {
         return this.props.leaderboards.map(leaderboard => {
-            const { title, artist, author, difficultyLeaderboards } = leaderboard;
+            const { id, title, artist, author, difficultyLeaderboards } = leaderboard;
 
             const titleArtist = titleArtistString(title, artist);
 
@@ -45,6 +46,9 @@ export class SongsList extends React.Component<SongsListProps> {
 
             return {
                 title: titleArtist,
+                titleLink: this.props.route ?
+                    `${this.props.route}/${id}` :
+                    `/${id}`,
                 subtitle: author || undefined,
                 kpis,
             } as SummaryCardProps;

@@ -9,12 +9,14 @@ import { SongsList } from 'src/pages/songs-list';
 
 export interface SongsPageProps extends PageProps {
     leaderboards: SongLeaderboard[];
+    route?: string;
 }
 
 export class SongsPage extends Page<SongsPageProps> {
     protected renderContent() {
         return (
             <SongsList
+                route={this.props.route}
                 leaderboards={this.props.leaderboards}
             />
         );

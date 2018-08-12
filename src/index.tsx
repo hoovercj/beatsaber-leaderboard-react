@@ -2,6 +2,7 @@ declare module 'prop-types';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { HashRouter } from 'react-router-dom'
 
 // tslint:disable-next-line
 const axe = require('react-axe');
@@ -28,9 +29,11 @@ if (false && process.env.NODE_ENV !== 'production') {
 // TODO: Create a logger which is enabled in dev and disabled in prod
 // process.env.NODE_ENV === 'development'
 ReactDOM.render(
-    <App
-        applicationInfo={applicationInfo}
-        scoreProvider={new LocalFileScoreProvider()}
-    />,
+    <HashRouter>
+        <App
+            applicationInfo={applicationInfo}
+            scoreProvider={new LocalFileScoreProvider()}
+        />
+    </HashRouter>,
     document.getElementById('root') as HTMLElement
 );

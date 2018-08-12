@@ -4,6 +4,7 @@ import './index.css';
 export interface KpiData {
     name: string;
     value: string;
+    valueLink?: string;
 }
 
 // tslint:disable-next-line

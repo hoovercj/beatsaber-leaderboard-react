@@ -50,8 +50,8 @@ This directory contains "stories" which demonstrate uses and appearance for diff
 * [X] Create "Song list" stories
 * [X] Create "Songs Page" story
 * [X] Add "Songs Page" to app.tsx using static data
-* [ ] Create "Song Page" stories
-* [ ] Navigate to "Song page" when clicking song title in song list
+* [X] Navigate to "Song page" when clicking song title in song list
+* [ ] Create "Song Page" stories (Note: Probably will skip this unless I need another page with a similar layout, then I'll refactor one out of this and make a presentation component)
 * [ ] Create "User Page" stories
 * [ ] Navigate to "User Page" when clicking user name in song list or song page
 * [ ] Navigate to "Song Page" when clicking song name in User Page

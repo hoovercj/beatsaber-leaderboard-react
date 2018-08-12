@@ -1,16 +1,18 @@
 import {
+    ConstrainMode,
     DetailsList,
-    DetailsListLayoutMode,
+    // DetailsListLayoutMode,
     SelectionMode,
 } from 'office-ui-fabric-react';
 import * as React from 'react';
 
+import { Card } from 'src/components/card';
 import { Page, PageProps } from 'src/components/page';
 import {
     Score,
     SongLeaderboard,
 } from 'src/lib/parser';
-import { titleArtistString } from 'src/utils/string-utils';
+import { dateToTimeDifferenceInWords, titleArtistString } from 'src/utils/string-utils';
 
 export interface SongDetailsPageProps extends PageProps {
     songInformation: SongLeaderboard,
@@ -37,10 +39,10 @@ export class SongDetailsPage extends Page<SongDetailsPageProps> {
     private renderContentHeader = (): JSX.Element => {
         const { title, artist, author } = this.props.songInformation;
         return (
-            <React.Fragment>
+            <Card>
                 <div>{titleArtistString(title, artist)}</div>
                 { author && <div><sub>{author}</sub></div> }
-            </React.Fragment>
+            </Card>
         );
     }
 
@@ -66,42 +68,28 @@ export class SongDetailsPage extends Page<SongDetailsPageProps> {
             Rank: String(rank + 1),
             Name: score.playerName,
             Score: `${score.score}${score.fullCombo ? ' (FC)' : ''}`,
-            Time: String(score.timestamp), // TODO: prettify this
+            Time: dateToTimeDifferenceInWords(new Date(score.timestamp * 1000)), // TODO: prettify this
         }
     }
 
     private renderDetailsList = (title: string, items: any[]): JSX.Element => {
         return (
-            <React.Fragment>
+            <Card key={title}>
                 <div>{title}</div>
                 <DetailsList
-                    key={title}
                     items={items}
+                    constrainMode={ConstrainMode.unconstrained}
                     selectionMode={SelectionMode.none}
-                    layoutMode={DetailsListLayoutMode.justified}
-                    // columns={[{
-                    //     key: 'Rank',
-                    //     name: 'Rank',
-                    //     fieldName: 'rank',
-                    //     minWidth: 50,
-                    // },{
-                    //     key: 'Name',
-                    //     name: 'Name',
-                    //     fieldName: 'name',
-                    //     minWidth: 200,
-                    // },{
-                    //     key: 'Score',
-                    //     name: 'Score',
-                    //     fieldName: 'score',
-                    //     minWidth: 50,
-                    // },{
-                    //     key: 'Time',
-                    //     name: 'Time',
-                    //     fieldName: 'time',
-                    //     minWidth: 100,
-                    // }]}
+                    // TODO: replace this dirty, dirty hack to avoid horizontal scrollbars
+                    // Problem: Something is going wrong when the list first loads and it
+                    // is incorrectly rendering horizontal scrollbars. Forcing the update
+                    // forces it to re-measure and set widths that fit, eliminating the scrollbars.
+                    // Setting `constrainMode` can make the problem appear fixed, but there
+                    // is still subtle overflow at the edge of the card. This hack is
+                    // still necessary to avoid that.
+                    ref={(ref) => requestAnimationFrame(() => ref && ref.forceUpdate())}
                 />
-            </React.Fragment>
+            </Card>
         )
     }
 }
