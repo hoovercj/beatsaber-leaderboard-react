@@ -1,3 +1,5 @@
+// TODO: Move to components
+
 import * as React from 'react';
 
 import 'src/styles/colors.css';

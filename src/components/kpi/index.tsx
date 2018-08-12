@@ -1,23 +1,23 @@
 import * as React from 'react';
 import './index.css';
 
-export interface StatisticData {
+export interface KpiData {
     name: string;
     value: string;
 }
 
 // tslint:disable-next-line
-export interface StatisticProps extends StatisticData {}
+export interface KpiProps extends KpiData {}
 
-export class Statistic extends React.Component<StatisticProps> {
+export class Kpi extends React.Component<KpiProps> {
 
     public render() {
         return (
-            <div className={'statistic_container'}>
-                <div className={'statistic_name'}>
+            <div className={'kpi_container'}>
+                <div className={'kpi_name'}>
                     {this.props.name}
                 </div>
-                <b className={'statistic_value'}>
+                <b className={'kpi_value'}>
                     {this.props.value}
                 </b>
             </div>

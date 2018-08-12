@@ -1,23 +1,23 @@
-.songs-list-item_container {
+.summary-card_container {
     text-align: left;
     display: flex;
     justify-content: space-between;
     align-content: center;
 }
 
-.songs-list-item_header-wrapper {
+.summary-card_header-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
 }
 
-.songs-list-item_subheader {
+.summary-card_subheader {
     font-size: 11px;
     color: #666;
     margin-bottom: 20px;
 }
 
-.songs-list-item_container .songs-list-item_name {
+.summary-card_container .summary-card_name {
     font-size: 20px;
     font-weight: 600;
     line-height: 1.333;
@@ -27,19 +27,19 @@
     color: currentColor;
 }
 
-.songs-list-item_container .songs-list-item_name:hover,
-.songs-list-item_container .songs-list-item_name:focus {
+.summary-card_container .summary-card_name:hover,
+.summary-card_container .summary-card_name:focus {
     color: #005b83;
 }
 
 @media only screen and (max-width: 600px) {
-    .songs-list-item_container {
+    .summary-card_container {
         flex-direction: column;
     }
 }
 
 @media only screen and (max-width: 420px) {
-    .songs-list-item_container {
+    .summary-card_container {
         flex-direction: column;
     }
 }

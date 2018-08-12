@@ -4,8 +4,17 @@ View leaderboards for Beat Saber.
 
 ## Usage:
 
+### Prerequisites
+
+I use `npm`, but `yarn` should also work. Make sure you've installed the required packages.
+
+```
+npm install
+```
+
 ### React App
-The app itself is not functional but is under rapid development. See progress with:
+
+Simply run the react app to launch the minimalist of MVPs which loads a bundled json file and shows a row for each song that has been played with the name of the current leader for each difficulty.
 
 ```
 npm start
@@ -18,7 +27,7 @@ Storybook is being used to develop components in isolation. View current compone
 npm run storybook
 ```
 
-## Code Structure
+## Contributing Guide
 
 ### index.tsx
 This serves as a thin wrapper around the main application, providing it with environment related information such as environment variables, data providers, etc. For example, test or development environments may use different providers, endpoints, etc. which should be passed in to the application via `index.tsx`.
@@ -33,7 +42,7 @@ These are the "application level" components. They should not introduce new UI c
 These are entirely presentational and should be able to be replaced with a component that takes the same data without affecting the behavior of the application. These components should also be able to be copied and used in an unrelated react application without much effort, if any. Ideally all new components here should have a corresponding entry in `stories/` demonstrating their use and appearance.
 
 ### stories/
-This directory contains "stories" which demonstrate uses and appearance for different components. Related components should be added to the same story.
+This directory contains "stories" which demonstrate uses and appearance for different components. Related components should be added to the same story. [Learn more](http://storybook.js.org) about Storybook.js
 
 ## Backlog
 

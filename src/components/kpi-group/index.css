@@ -1,12 +1,12 @@
-.statistic-group_container {
+.kpi-group_container {
     display: flex;
 }
 
-.statistic-group_stat-wrapper {
+.kpi-group_stat-wrapper {
     display: flex;
 }
 
-.statistic-group_separator {
+.kpi-group_separator {
     height: 24px;
     width: 0px;
     margin: auto 16px;

@@ -58,7 +58,7 @@ export enum Mode {
     PartyStandard = 'PartyStandard',
 }
 
-interface Score {
+export interface Score {
     score: number;
     playerName: string;
     fullCombo: boolean;
