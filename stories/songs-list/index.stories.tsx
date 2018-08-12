@@ -14,11 +14,12 @@ import {
   Mode,
   SongLeaderboard,
 } from 'src/lib/parser';
+import { SongsPage } from 'src/pages/songs/index';
 
 const generateLeaderboards = (num: number): SongLeaderboard[] => {
   const ret: SongLeaderboard[] = [];
   for (let i = 0; i < num; i++) {
-    ret.push(generateLeaderboard(num));
+    ret.push(generateLeaderboard(i));
   }
 
   return ret;
@@ -72,7 +73,18 @@ storiesOf('Songs List', module)
       scores={scoreItems}
     />
   )
-  .add('Song List', () => <SongsList
+  .add('Songs List', () => <SongsList
       leaderboards={leaderboards}
+    />
+  )
+  .add('Songs Page', () => <SongsPage
+      leaderboards={leaderboards}
+      applicationInfo={{
+        applicationName: 'Application Name',
+        contactEmail: "email@example.com",
+        copyrightName: "Company Name",
+        copyrightUrl: "https://www.example.com",
+        githubUrl: "https://www.github.com"
+      }}
     />
   );

@@ -14,11 +14,12 @@ import 'src/styles/fonts.css';
 
 import { IAppInfo } from 'src/models/copyright-info';
 import { SongsPage } from 'src/pages/songs';
+import { ScoreProvider } from 'src/services/score-provider';
 
 interface IAppProps {
     applicationInfo: IAppInfo;
+    scoreProvider: ScoreProvider;
 }
-
 
 class App extends React.Component<IAppProps> {
 
@@ -41,10 +42,14 @@ class App extends React.Component<IAppProps> {
     }
 
     private renderSongsPage = () => {
+        const _leaderboards = this.props.scoreProvider.scores().leaderboards;
+        const leaderboards = Object.keys(_leaderboards).map(key => _leaderboards[key]);
+
         return (
             <SongsPage
                 key='songs'
                 applicationInfo={this.props.applicationInfo}
+                leaderboards={leaderboards}
             />
         )
     }

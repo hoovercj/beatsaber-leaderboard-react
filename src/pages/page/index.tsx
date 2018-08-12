@@ -7,11 +7,11 @@ import './index.css';
 import { PageFooter } from 'src/components/page-footer';
 import { IAppInfo } from 'src/models/copyright-info';
 
-export interface IPageProps {
+export interface PageProps {
     applicationInfo: IAppInfo;
 }
 
-export abstract class Page<T extends IPageProps, S = {}> extends React.Component<T, S> {
+export abstract class Page<T extends PageProps, S = {}> extends React.Component<T, S> {
     public render() {
         return (
             <div className={this.containerClass()}>

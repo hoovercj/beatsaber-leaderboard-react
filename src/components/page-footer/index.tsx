@@ -32,13 +32,12 @@ export class PageFooter extends React.Component<IPageFooterProps, IPageFooterSta
         } = this.props.applicationInfo;
         return (
             <div className={'page-footer_container'}>
-                <div className={'page-footer_column page-footer_column_left'}>
-                    <p>{'©\u00a02018 '}<Link href={copyrightUrl}>{copyrightName.replace(' ', '\u00a0')}</Link></p>
-                </div>
                 <div className={'page-footer_column page-footer_column_center'}>
                     <Link className={'page-footer_link'} href={`mailto:${contactEmail}?subject=About ${applicationName}`}>Contact</Link>
                     <span className={'page-footer_separator'}>|</span>
                     <Link className={'page-footer_link'} href={githubUrl}>Github</Link>
+                    <span className={'page-footer_separator'}>|</span>
+                    <p>{'©\u00a02018 '}<Link href={copyrightUrl}>{copyrightName.replace(' ', '\u00a0')}</Link></p>
                 </div>
             </div>
         )
