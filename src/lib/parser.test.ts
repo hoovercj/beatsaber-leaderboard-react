@@ -50,48 +50,48 @@ describe('BeatsaberLeaderboard', () => {
 });
 
 const RAW_LEADERBOARDS: BeatsaberLeaderboardFile = {
-    "_leaderboardsData": [{
-        "_leaderboardId": "ID1∎Title1∎Artist1∎Author1∎160∎_Normal_PartyStandard",
-        "_scores": [
+    _leaderboardsData: [{
+        _leaderboardId: 'ID1∎Title1∎Artist1∎Author1∎160∎_Normal_PartyStandard',
+        _scores: [
             {
-                "_score": 1,
-                "_playerName": "Player 1",
-                "_fullCombo": false,
-                "_timestamp": 1
+                _score: 1,
+                _playerName: 'Player 1',
+                _fullCombo: false,
+                _timestamp: 1
             }
         ]
     },
     {
-        "_leaderboardId": "ID2∎Title2∎Artist2∎Author2∎125∎_Expert_PartyStandard",
-        "_scores": [
+        _leaderboardId: 'ID2∎Title2∎Artist2∎Author2∎125∎_Expert_PartyStandard',
+        _scores: [
             {
-                "_score": 1,
-                "_playerName": "Player 1",
-                "_fullCombo": true,
-                "_timestamp": 1
+                _score: 1,
+                _playerName: 'Player 1',
+                _fullCombo: true,
+                _timestamp: 1
             },
             {
-                "_score": 2,
-                "_playerName": "Player 2",
-                "_fullCombo": false,
-                "_timestamp": 2
+                _score: 2,
+                _playerName: 'Player 2',
+                _fullCombo: false,
+                _timestamp: 2
             },
         ]
     },
     {
-        "_leaderboardId": "ID1∎Title1∎Artist1∎Author1∎160∎_Hard_PartyStandard",
-        "_scores": [
+        _leaderboardId: 'ID1∎Title1∎Artist1∎Author1∎160∎_Hard_PartyStandard',
+        _scores: [
             {
-                "_score": 3,
-                "_playerName": "Player 3",
-                "_fullCombo": false,
-                "_timestamp": 3
+                _score: 3,
+                _playerName: 'Player 3',
+                _fullCombo: false,
+                _timestamp: 3
             },
             {
-                "_score": 4,
-                "_playerName": "Player 4",
-                "_fullCombo": false,
-                "_timestamp": 4
+                _score: 4,
+                _playerName: 'Player 4',
+                _fullCombo: false,
+                _timestamp: 4
             }
         ]
     }]
@@ -144,12 +144,12 @@ const PARSED_LEADERBOARDS: Leaderboards = {
                 mode: Mode.PartyStandard,
                 scores: [{
                     score: 1,
-                    playerName: "Player 1",
+                    playerName: 'Player 1',
                     fullCombo: true,
                     timestamp: 1
                 },{
                     score: 2,
-                    playerName: "Player 2",
+                    playerName: 'Player 2',
                     fullCombo: false,
                     timestamp: 2
                 }],
