@@ -57,6 +57,7 @@ This directory contains "stories" which demonstrate uses and appearance for diff
 * [ ] Navigate to "Song Page" when clicking song name in User Page
 * [ ] Alternate between "Daily" and "All time" leaderboard
 * [ ] Search / Filter
+* [ ] "Dashboard" with top songs, top players, and recent scores
 
 ### Backend
 * [ ] Provide endpoint for getting data
