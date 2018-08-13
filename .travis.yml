@@ -13,7 +13,3 @@ deploy:
   local-dir: build
   on:
     branch: master
-branches:
-  only:
-  - gh-pages
-  - /.*/
