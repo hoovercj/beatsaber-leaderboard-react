@@ -1,4 +1,6 @@
-.routable-link a,
+/* `a.{classname} is necessary to override office fabric styling */
+/* `{classname} allows this to be applied to non <a> elements as well */
+a.routable-link,
 .routable-link {
     text-decoration: none;
     padding-left: 10px;
