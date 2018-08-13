@@ -1,6 +1,6 @@
 {
-  "name": "beatsaber-leaderboards-react",
-  "homepage": "https://www.codyhoover.com/beatsaber-leaderboards-react",
+  "name": "beatsaber-leaderboard-react",
+  "homepage": "https://www.codyhoover.com/beatsaber-leaderboard-react",
   "version": "0.1.0",
   "private": true,
   "description": "View local leaderboards for strava",
