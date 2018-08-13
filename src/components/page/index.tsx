@@ -6,6 +6,7 @@ import 'src/styles/colors.css';
 import 'src/styles/fonts.css';
 import './index.css';
 
+import { Link } from 'src/components/link';
 import { PageFooter } from 'src/components/page-footer';
 import { PageHeader } from 'src/components/page-header';
 import { IAppInfo } from 'src/models/copyright-info';
@@ -27,7 +28,10 @@ export abstract class Page<T extends PageProps = PageProps, S = {}> extends Reac
 
     protected renderHeader() {
         return (
-            <PageHeader pageTitle={this.props.applicationInfo.applicationName} />
+            <PageHeader pageTitle={this.props.applicationInfo.applicationName}>
+                <Link to='/songs'>Songs</Link>
+                <Link to='/players'>Players</Link>
+            </PageHeader>
         );
     }
 

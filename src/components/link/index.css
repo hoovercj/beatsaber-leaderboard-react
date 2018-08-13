@@ -1,4 +1,9 @@
 .routable-link a,
 .routable-link {
     text-decoration: none;
+    padding-left: 10px;
+}
+
+.routable-link.active {
+    text-decoration: underline;
 }

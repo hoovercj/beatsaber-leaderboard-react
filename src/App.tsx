@@ -18,9 +18,10 @@ import 'src/styles/colors.css';
 import 'src/styles/fonts.css';
 
 import { IAppInfo } from 'src/models/copyright-info';
+import { PlayersPage } from 'src/pages/players-page';
+import { SongDetailsPage } from 'src/pages/song-details-page';
 import { SongsPage } from 'src/pages/songs-page';
 import { ScoreProvider } from 'src/services/score-provider';
-import { SongDetailsPage } from './pages/song-details-page/index';
 
 interface IAppProps {
     applicationInfo: IAppInfo;
@@ -43,6 +44,7 @@ class App extends React.Component<IAppProps> {
             <Switch>
                 <Route path='/songs/:id' render={this.renderSongDetailsPage } />
                 <Route path='/songs' render={this.renderSongsPage} />
+                <Route path='/players' render={this.renderPlayersPage} />
                 <Route path='/' render={this.renderRoot} />
             </Switch>
         );
@@ -55,6 +57,20 @@ class App extends React.Component<IAppProps> {
         return (
             <SongsPage
                 key='songs'
+                route={routeProps.match.path}
+                applicationInfo={this.props.applicationInfo}
+                leaderboards={leaderboards}
+            />
+        )
+    }
+
+    private renderPlayersPage = (routeProps: RouteComponentProps<any, any, any>) => {
+        const _leaderboards = this.props.scoreProvider.scores().leaderboards;
+        const leaderboards = Object.keys(_leaderboards).map(key => _leaderboards[key]);
+
+        return (
+            <PlayersPage
+                key='users'
                 route={routeProps.match.path}
                 applicationInfo={this.props.applicationInfo}
                 leaderboards={leaderboards}
