@@ -4,11 +4,20 @@ import { BeatsaberLeaderboardFile } from 'src/lib/parser';
 const rawscores = require('./data/scores.json');
 
 export interface BeatSaberFileProvider {
-    scores(): BeatsaberLeaderboardFile;
+    scores(): Promise<BeatsaberLeaderboardFile>;
 }
 
 export class LocalFileScoreProvider implements BeatSaberFileProvider {
-    public scores(): BeatsaberLeaderboardFile {
+    public async scores(): Promise<BeatsaberLeaderboardFile> {
         return rawscores as BeatsaberLeaderboardFile;
+    }
+}
+
+// tslint:disable-next-line:max-classes-per-file
+export class RemoteFileScoreProvider implements BeatSaberFileProvider {
+    constructor(private url: string) {}
+
+    public async scores(): Promise<BeatsaberLeaderboardFile> {
+        return (await fetch(this.url)).json();
     }
 }

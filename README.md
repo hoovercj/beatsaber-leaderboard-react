@@ -14,7 +14,15 @@ npm install
 
 ### React App
 
-Simply run the react app to launch the app which loads a bundled json file and shows scores and statistic for each song and player in the leaderboards.
+#### Pointing to your own scores
+In the `.env` file, set `REACT_APP_BACKEND_URL=` to a url which resolves to a JSON file holding the scores.
+
+To point to your local scores you can install a node http server (`npm install -g http-server`) and run it with the command `http-server --cors` in the dirctory `Appdata/locallow/hyperbolic-magnetism/beat saber`. Then set the value to `REACT_APP_BACKEND_URL=http://localhost:8080/LocalLeaderboard.dat`.
+
+
+Otherwise, you can leave the url blank and use the bundled json file with sample scores and statistics.
+
+#### Running the app
 
 ```
 npm start

@@ -9,7 +9,7 @@ const axe = require('react-axe');
 
 import App from 'src/App';
 import { IAppInfo } from 'src/models/copyright-info';
-import { LocalFileScoreProvider } from 'src/services/score-provider';
+import { LocalFileScoreProvider, RemoteFileScoreProvider } from 'src/services/score-provider';
 
 import './index.css';
 
@@ -20,6 +20,10 @@ const applicationInfo: IAppInfo = {
     copyrightUrl: process.env.REACT_APP_COPYRIGHT_URL || '',
     githubUrl: process.env.REACT_APP_GITHUB_URL || '',
 }
+
+const scoreProvider = process.env.REACT_APP_BACKEND_URL ?
+    new RemoteFileScoreProvider(process.env.REACT_APP_BACKEND_URL) :
+    new LocalFileScoreProvider;
 
 // TODO: Enable ASAP to ensure the product is accessible
 if (false && process.env.NODE_ENV !== 'production') {
@@ -32,7 +36,7 @@ ReactDOM.render(
     <HashRouter>
         <App
             applicationInfo={applicationInfo}
-            scoreProvider={new LocalFileScoreProvider()}
+            scoreProvider={scoreProvider}
         />
     </HashRouter>,
     document.getElementById('root') as HTMLElement

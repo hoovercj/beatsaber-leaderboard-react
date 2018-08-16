@@ -25,26 +25,34 @@ import { SongDetailsPage } from 'src/pages/song-details-page';
 import { SongsPage } from 'src/pages/songs-page';
 import { BeatSaberFileProvider } from 'src/services/score-provider';
 
-interface IAppProps {
+interface AppProps {
     applicationInfo: IAppInfo;
     scoreProvider: BeatSaberFileProvider;
 }
 
-class App extends React.Component<IAppProps> {
+interface AppState {
+    beatSaber: IBeatSaber;
+}
 
-    private beatSaber: IBeatSaber;
+class App extends React.Component<AppProps, AppState> {
 
-    constructor(props: IAppProps) {
+    constructor(props: AppProps) {
         super(props);
-        this.beatSaber = BeatSaber.FromFile(this.props.scoreProvider.scores());
+
+        this.state = {} as AppState;
     }
 
     public componentDidMount(): void {
         loadTheme(this.getCustomTheme());
         initializeIcons();
+
+        this.initializeBeatSaber();
     }
 
     public render() {
+        if (!this.state.beatSaber) {
+            return (<h1>Loading...</h1>);
+        }
         return (
             <Switch>
                 <Route path='/songs/:id' render={this.renderSongDetailsPage } />
@@ -55,13 +63,19 @@ class App extends React.Component<IAppProps> {
         );
     }
 
+    private initializeBeatSaber = async () => {
+        this.setState({
+            beatSaber:BeatSaber.FromFile(await this.props.scoreProvider.scores())
+        });
+    }
+
     private renderSongsPage = (routeProps: RouteComponentProps<any, any, any>) => {
         return (
             <SongsPage
                 key='songs'
                 route={routeProps.match.path}
                 applicationInfo={this.props.applicationInfo}
-                songs={this.beatSaber.songsByNumberOfPlayers()}
+                songs={this.state.beatSaber.songsByNumberOfPlayers()}
             />
         )
     }
@@ -72,7 +86,7 @@ class App extends React.Component<IAppProps> {
                 key='users'
                 route={routeProps.match.path}
                 applicationInfo={this.props.applicationInfo}
-                players={this.beatSaber.playersByFirstPlaces()}
+                players={this.state.beatSaber.playersByFirstPlaces()}
             />
         )
     }
@@ -82,7 +96,7 @@ class App extends React.Component<IAppProps> {
     }
 
     private renderSongDetailsPage = (routeProps: RouteComponentProps<any, any, any>) => {
-        const songInformation = this.beatSaber.song(routeProps.match.params.id);
+        const songInformation = this.state.beatSaber.song(routeProps.match.params.id);
 
         return songInformation ?
             (
