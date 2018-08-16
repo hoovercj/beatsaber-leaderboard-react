@@ -25,18 +25,18 @@ export class PlayersList extends React.Component<PlayersListProps> {
             return {
                 title: name,
                 subtitle: fullCombos.length > 0 && `${fullCombos.length} Full Combos`,
-                // TODO: KPI title
-                kpis: Object.keys(detailsByDifficulty)
-                    .map(difficulty => detailsByDifficulty[difficulty])
-                    .filter((details: PlayerDetails) => details.songsPlayed.length > 0)
-                    .map((details: PlayerDetails) => {
-                        return {
-                            name: details.difficulty,
-                            value: `${details.firstPlaces.length}`
-                            // TODO: Add kpi group title
-                            // value: `${details.firstPlaces.length} / ${details.songsPlayed.length}`
-                        }
-                    })
+                kpiData: {
+                    name: `First Place Scores / Songs Played`,
+                    kpis: Object.keys(detailsByDifficulty)
+                        .map(difficulty => detailsByDifficulty[difficulty])
+                        .filter((details: PlayerDetails) => details.songsPlayed.length > 0)
+                        .map((details: PlayerDetails) => {
+                            return {
+                                name: details.difficulty,
+                                value: `${details.firstPlaces.length} / ${details.songsPlayed.length}`
+                            }
+                        })
+                    }
             } as SummaryCardProps
         });
     }

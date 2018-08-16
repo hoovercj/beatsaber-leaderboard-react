@@ -6,20 +6,23 @@ import { AppDecorator } from '../decorators';
 import { SummaryCard, SummaryCardProps } from 'src/components/summary-card';
 import { SummaryList } from 'src/components/summary-list';
 
-const kpis = [{
-    name: 'Kpi 1',
-    value: 'Awesome'
-},{
-    name: 'Kpi 2',
-    value: 'Bad'
-}];
+const kpis = {
+    name: 'Kpi Group',
+    kpis: [{
+        name: 'Kpi 1',
+        value: 'Awesome'
+    },{
+        name: 'Kpi 2',
+        value: 'Bad'
+    }]
+};
 
 let seed = 1;
 const generateSummaryCardProps = (id: string = String(seed++)): SummaryCardProps => {
     return {
         title: `Summary Card ${id}`,
         subtitle: 'Subtitle',
-        kpis
+        kpiData: kpis,
     }
 };
 
@@ -37,7 +40,7 @@ storiesOf('Summaries and KPIs', module)
   .add('Summary Card', () => <SummaryCard
       title='Summary Card'
       subtitle='Subtitle'
-      kpis={kpis}
+      kpiData={kpis}
     />
   )
   .add('Summary List', () => <SummaryList

@@ -1,7 +1,6 @@
-// TODO: Move to components
-
 import * as React from 'react';
 
+// TODO: Move to components
 import 'src/styles/colors.css';
 import 'src/styles/fonts.css';
 import './index.css';

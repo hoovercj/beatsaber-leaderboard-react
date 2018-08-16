@@ -48,7 +48,10 @@ export class SongsList extends React.Component<SongsListProps> {
                     `${this.props.route}/${id}` :
                     `/${id}`,
                 subtitle: author || undefined,
-                kpis,
+                kpiData: {
+                    name: `Top Player by Difficulty`,
+                    kpis,
+                },
             } as SummaryCardProps;
        });
     }
