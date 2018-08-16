@@ -17,7 +17,7 @@ npm install
 #### Pointing to your own scores
 In the `.env` file, set `REACT_APP_BACKEND_URL=` to a url which resolves to a JSON file holding the scores.
 
-To point to your local scores you can install a node http server (`npm install -g http-server`) and run it with the command `http-server --cors` in the dirctory `Appdata/locallow/hyperbolic-magnetism/beat saber`. Then set the value to `REACT_APP_BACKEND_URL=http://localhost:8080/LocalLeaderboard.dat`.
+To point to your local scores you can install a node http server (`npm install -g http-server`) and run it with the command `http-server --cors` in the dirctory `C:\Users\<YourUserName>\AppData\LocalLow\Hyperbolic Magnetism\Beat Saber\`. Then set the value to `REACT_APP_BACKEND_URL=http://localhost:8080/LocalLeaderboards.dat`.
 
 
 Otherwise, you can leave the url blank and use the bundled json file with sample scores and statistics.
@@ -54,25 +54,8 @@ This directory contains "stories" which demonstrate uses and appearance for diff
 
 ## Backlog
 
-### Parser
-* [ ] Extract parser/"BeatSaber" component to its own npm package
+See these [open issues](https://github.com/hoovercj/beatsaber-leaderboard-react/issues) on GitHub.
 
-### UI
-* [X] Create "Song list" stories
-* [X] Create "Songs Page" story
-* [X] Add "Songs Page" to app.tsx using static data
-* [X] Navigate to "Song page" when clicking song title in song list
-* [ ] Create "Song Page" stories (Note: Probably will skip this unless I need another page with a similar layout, then I'll refactor one out of this and make a presentation component)
-* [ ] Create "User Page" stories
-* [ ] Navigate to "User Page" when clicking user name in song list or song page
-* [ ] Navigate to "Song Page" when clicking song name in User Page
-* [ ] Alternate between "Daily" and "All time" leaderboard
-* [ ] Search / Filter
-* [ ] "Dashboard" with top songs, top players, and recent scores
-
-### Backend
-* [ ] Provide endpoint for getting data
-* [ ] Push data to backend whenever leaderboard files change
 
 ## Acknowledgements
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
