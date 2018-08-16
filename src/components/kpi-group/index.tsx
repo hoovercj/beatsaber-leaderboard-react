@@ -36,7 +36,7 @@ export class KpiGroup extends React.Component<KpiGroupProps> {
         return (
             <div key={kpi.name} className={'kpi-group_stat-wrapper'}>
                 <div className={'kpi-group_stat'}>
-                    <Kpi name={kpi.name} value={kpi.value} />
+                    <Kpi {...kpi} />
                 </div>
                 {showBorder && <div className={'kpi-group_separator'}>{/*nothing*/}</div>}
             </div>

@@ -33,7 +33,9 @@ export class PlayersList extends React.Component<PlayersListProps> {
                         .map((details: PlayerDetails) => {
                             return {
                                 name: details.difficulty,
-                                value: `${details.firstPlaces.length} / ${details.songsPlayed.length}`
+                                inlineValue: true,
+                                value: `${details.firstPlaces.length}`,
+                                subvalue: `/ ${details.songsPlayed.length}`
                             }
                         })
                     }

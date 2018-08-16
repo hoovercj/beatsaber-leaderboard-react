@@ -3,14 +3,16 @@ import * as React from 'react';
 
 import { AppDecorator } from '../decorators';
 
+import { KpiGroupProps } from 'src/components/kpi-group/index';
 import { SummaryCard, SummaryCardProps } from 'src/components/summary-card';
 import { SummaryList } from 'src/components/summary-list';
 
-const kpis = {
+const kpis: KpiGroupProps = {
     name: 'Kpi Group',
     kpis: [{
         name: 'Kpi 1',
-        value: 'Awesome'
+        value: 'Awesome',
+        subvalue: 'Subtext'
     },{
         name: 'Kpi 2',
         value: 'Bad'
@@ -21,7 +23,7 @@ let seed = 1;
 const generateSummaryCardProps = (id: string = String(seed++)): SummaryCardProps => {
     return {
         title: `Summary Card ${id}`,
-        subtitle: 'Subtitle',
+        subtitle: 'Subtitlessss',
         kpiData: kpis,
     }
 };

@@ -31,14 +31,14 @@ export class SongsList extends React.Component<SongsListProps> {
                 .filter((songDetails: SongDetails ) => songDetails.summary.topPlayer)
                 .map((songDetails: SongDetails ) => {
                     const { topPlayer, topPlayerFullCombo } = songDetails.summary;
-                    // TODO: Add "subtext" to KPIs to use this
-                    // const subtext = `1st of ${songDetails.summary.players.length}`;
+                    const subvalue = `1st of ${songDetails.summary.players.length}`;
 
                     const value = `${topPlayer}${topPlayerFullCombo ? ' (FC)' : ''}`;
 
                     return {
                         name: songDetails.difficulty,
-                        value
+                        value,
+                        subvalue,
                     } as KpiData;
                 });
 
