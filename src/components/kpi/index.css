@@ -5,10 +5,15 @@
     flex-direction: column;
 }
 
-.kpi_name {
+.kpi_name,
+.kpi_subvalue {
     color: #606065;
     font-size: 12px;
     font-weight: 400;
+}
+
+.kpi_value_inline .kpi_subvalue {
+    padding-left:5px;
 }
 
 .kpi_value {

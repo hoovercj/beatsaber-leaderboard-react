@@ -4,11 +4,11 @@ import {
     Page,
     PageProps,
 } from 'src/components/page';
-import { SongLeaderboard } from 'src/lib/parser';
+import { Player } from 'src/lib/models';
 import { PlayersList } from 'src/pages/players-list';
 
 export interface PlayersPageProps extends PageProps {
-    leaderboards: SongLeaderboard[];
+    players: Player[];
     route?: string;
 }
 
@@ -17,7 +17,7 @@ export class PlayersPage extends Page<PlayersPageProps> {
         return (
             <PlayersList
                 route={this.props.route}
-                leaderboards={this.props.leaderboards}
+                players={this.props.players}
             />
         );
     }

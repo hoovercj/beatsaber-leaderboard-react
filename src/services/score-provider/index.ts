@@ -1,16 +1,14 @@
-import { BeatsaberLeaderboard } from 'src/lib/parser';
+import { BeatsaberLeaderboardFile } from 'src/lib/parser';
 
 // tslint:disable-next-line
 const rawscores = require('./data/scores.json');
 
-export interface ScoreProvider {
-    scores(): BeatsaberLeaderboard;
+export interface BeatSaberFileProvider {
+    scores(): BeatsaberLeaderboardFile;
 }
 
-export class LocalFileScoreProvider implements ScoreProvider {
-    private readonly leaderboards = BeatsaberLeaderboard.FromFile(rawscores);
-
-    public scores(): BeatsaberLeaderboard {
-        return this.leaderboards;
+export class LocalFileScoreProvider implements BeatSaberFileProvider {
+    public scores(): BeatsaberLeaderboardFile {
+        return rawscores as BeatsaberLeaderboardFile;
     }
 }

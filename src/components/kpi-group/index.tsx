@@ -7,6 +7,7 @@ import {
 } from 'src/components/kpi';
 
 export interface KpiGroupProps {
+    name: string;
     kpis: KpiData[];
 }
 
@@ -14,8 +15,13 @@ export class KpiGroup extends React.Component<KpiGroupProps> {
 
     public render() {
         return (
-            <div className={'kpi-group_container'}>
-                {this.renderKpis()}
+            <div>
+                {this.props.name &&
+                    <div className='kpi-group_name'>{this.props.name}</div>
+                }
+                <div className={'kpi-group_container'}>
+                    {this.renderKpis()}
+                </div>
             </div>
         );
     }
@@ -30,7 +36,7 @@ export class KpiGroup extends React.Component<KpiGroupProps> {
         return (
             <div key={kpi.name} className={'kpi-group_stat-wrapper'}>
                 <div className={'kpi-group_stat'}>
-                    <Kpi name={kpi.name} value={kpi.value} />
+                    <Kpi {...kpi} />
                 </div>
                 {showBorder && <div className={'kpi-group_separator'}>{/*nothing*/}</div>}
             </div>

@@ -14,7 +14,7 @@ npm install
 
 ### React App
 
-Simply run the react app to launch the minimalist of MVPs which loads a bundled json file and shows a row for each song that has been played with the name of the current leader for each difficulty.
+Simply run the react app to launch the app which loads a bundled json file and shows scores and statistic for each song and player in the leaderboards.
 
 ```
 npm start
@@ -45,6 +45,9 @@ These are entirely presentational and should be able to be replaced with a compo
 This directory contains "stories" which demonstrate uses and appearance for different components. Related components should be added to the same story. [Learn more](http://storybook.js.org) about Storybook.js
 
 ## Backlog
+
+### Parser
+* [ ] Extract parser/"BeatSaber" component to its own npm package
 
 ### UI
 * [X] Create "Song list" stories

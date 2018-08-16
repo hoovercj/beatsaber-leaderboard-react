@@ -3,11 +3,11 @@ import * as React from 'react';
 import { KpiData } from 'src/components/kpi';
 import { SummaryCardProps } from 'src/components/summary-card/index';
 import { SummaryList } from 'src/components/summary-list';
-import { SongLeaderboard } from 'src/lib/parser';
+import { Song, SongDetails } from 'src/lib/models';
 import { titleArtistString } from 'src/utils/string-utils';
 
 export interface SongsListProps {
-    leaderboards: SongLeaderboard[];
+    songs: Song[];
     route?: string;
 }
 
@@ -17,30 +17,28 @@ export class SongsList extends React.Component<SongsListProps> {
             <SummaryList
                 summaries={this.summaryItems}
             />
-
         );
     }
 
     private get summaryItems(): SummaryCardProps[] {
-        return this.props.leaderboards.map(leaderboard => {
-            const { id, title, artist, author, difficultyLeaderboards } = leaderboard;
+        return this.props.songs.map(song => {
+            const { id, title, artist, author, detailsByDifficulty } = song;
 
             const titleArtist = titleArtistString(title, artist);
 
-            const kpis: KpiData[] = Object.keys(difficultyLeaderboards)
-                .map(key => difficultyLeaderboards[key])
-                .map(difficultyLeaderboard => {
+            const kpis: KpiData[] = Object.keys(detailsByDifficulty)
+                .map(difficulty => detailsByDifficulty[difficulty])
+                .filter((songDetails: SongDetails ) => songDetails.summary.topPlayer)
+                .map((songDetails: SongDetails ) => {
+                    const { topPlayer, topPlayerFullCombo } = songDetails.summary;
+                    const subvalue = `1st of ${songDetails.summary.players.length}`;
 
-                    const sortedScores = difficultyLeaderboard.scores.slice(0).sort((a,b) => b.score - a.score);
-                    const topPlayer = sortedScores[0].playerName;
-                    // TODO: Add "subtext" to KPIs to use this
-                    // const numPlayers = this.countUniquePlayers(sortedScores);
-
-                    const value = `${topPlayer}`;
+                    const value = `${topPlayer}${topPlayerFullCombo ? ' (FC)' : ''}`;
 
                     return {
-                        name: difficultyLeaderboard.difficulty,
-                        value
+                        name: songDetails.difficulty,
+                        value,
+                        subvalue,
                     } as KpiData;
                 });
 
@@ -50,19 +48,11 @@ export class SongsList extends React.Component<SongsListProps> {
                     `${this.props.route}/${id}` :
                     `/${id}`,
                 subtitle: author || undefined,
-                kpis,
+                kpiData: {
+                    name: `Top Player by Difficulty`,
+                    kpis,
+                },
             } as SummaryCardProps;
        });
     }
-
-    // private countUniquePlayers = (scores: Score[]): number => {
-    //     // Generate an object with a key for each player
-    //     // and return the number of keys
-    //     return Object.keys(
-    //         scores.reduce((players, score) => {
-    //             players[score.playerName] = null;
-    //             return players;
-    //         }, {})
-    //     ).length;
-    // }
 }

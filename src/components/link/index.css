@@ -3,7 +3,6 @@
 a.routable-link,
 .routable-link {
     text-decoration: none;
-    padding-left: 10px;
 }
 
 .routable-link.active {
