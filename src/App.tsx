@@ -17,21 +17,26 @@ import {
 import 'src/styles/colors.css';
 import 'src/styles/fonts.css';
 
+import { BeatSaber } from 'src/lib/beatsaber';
+import { IBeatSaber } from 'src/lib/models';
 import { IAppInfo } from 'src/models/copyright-info';
 import { PlayersPage } from 'src/pages/players-page';
 import { SongDetailsPage } from 'src/pages/song-details-page';
 import { SongsPage } from 'src/pages/songs-page';
-import { ScoreProvider } from 'src/services/score-provider';
+import { BeatSaberFileProvider } from 'src/services/score-provider';
 
 interface IAppProps {
     applicationInfo: IAppInfo;
-    scoreProvider: ScoreProvider;
+    scoreProvider: BeatSaberFileProvider;
 }
 
 class App extends React.Component<IAppProps> {
 
+    private beatSaber: IBeatSaber;
+
     constructor(props: IAppProps) {
         super(props);
+        this.beatSaber = BeatSaber.FromFile(this.props.scoreProvider.scores());
     }
 
     public componentDidMount(): void {
@@ -51,29 +56,23 @@ class App extends React.Component<IAppProps> {
     }
 
     private renderSongsPage = (routeProps: RouteComponentProps<any, any, any>) => {
-        const _leaderboards = this.props.scoreProvider.scores().leaderboards;
-        const leaderboards = Object.keys(_leaderboards).map(key => _leaderboards[key]);
-
         return (
             <SongsPage
                 key='songs'
                 route={routeProps.match.path}
                 applicationInfo={this.props.applicationInfo}
-                leaderboards={leaderboards}
+                songs={this.beatSaber.songsByNumberOfPlayers()}
             />
         )
     }
 
     private renderPlayersPage = (routeProps: RouteComponentProps<any, any, any>) => {
-        const _leaderboards = this.props.scoreProvider.scores().leaderboards;
-        const leaderboards = Object.keys(_leaderboards).map(key => _leaderboards[key]);
-
         return (
             <PlayersPage
                 key='users'
                 route={routeProps.match.path}
                 applicationInfo={this.props.applicationInfo}
-                leaderboards={leaderboards}
+                players={this.beatSaber.playersByFirstPlaces()}
             />
         )
     }
@@ -83,15 +82,14 @@ class App extends React.Component<IAppProps> {
     }
 
     private renderSongDetailsPage = (routeProps: RouteComponentProps<any, any, any>) => {
-        const _leaderboards = this.props.scoreProvider.scores().leaderboards;
-        const songInformation = _leaderboards[routeProps.match.params.id];
+        const songInformation = this.beatSaber.song(routeProps.match.params.id);
 
         return songInformation ?
             (
                 <SongDetailsPage
                     key='songs'
                     applicationInfo={this.props.applicationInfo}
-                    songInformation={songInformation}
+                    song={songInformation}
                 />
             ) :
             <Redirect to='/songs'/>

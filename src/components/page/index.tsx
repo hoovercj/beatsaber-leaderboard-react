@@ -29,8 +29,8 @@ export abstract class Page<T extends PageProps = PageProps, S = {}> extends Reac
     protected renderHeader() {
         return (
             <PageHeader pageTitle={this.props.applicationInfo.applicationName}>
-                <Link to='/songs'>Songs</Link>
-                <Link to='/players'>Players</Link>
+                <Link className='page_header_link' to='/songs'>Songs</Link>
+                <Link className='page_header_link' to='/players'>Players</Link>
             </PageHeader>
         );
     }

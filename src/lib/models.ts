@@ -8,7 +8,7 @@ export interface IBeatSaber  {
     player(name: string): Player;
     players(): Player[];
 
-    songsByPopularity(): Song[];
+    songsByNumberOfPlayers(): Song[];
     songsByMostRecentlyPlayed(): Song[];
 
     playersByFirstPlaces(): Player[];
@@ -61,11 +61,13 @@ export interface Song {
     author: string;
     bpm: number;
     mode: string;
+    mostRecentScore?: SongScore;
     detailsByDifficulty: DifficultyMap<SongDetails>;
 }
 
 export interface SongDetails {
     summary: SongSummary;
+    difficulty: Difficulty;
     scores: SongScore[];
 }
 
@@ -87,13 +89,14 @@ export interface SongScore {
  */
 
 export interface PlayerDetails {
+    difficulty: Difficulty;
     songsPlayed: SongId[];
     firstPlaces: SongId[];
 }
 
 export interface Player {
-    // TODO: May need to add count or list of FCs
     name: string;
+    fullCombos: PlayerScore[];
     detailsByDifficulty: DifficultyMap<PlayerDetails>;
     topScores: {[songId: string]: PlayerScore};
 }

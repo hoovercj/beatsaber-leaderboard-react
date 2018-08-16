@@ -4,11 +4,11 @@ import {
     Page,
     PageProps,
 } from 'src/components/page';
-import { SongLeaderboard } from 'src/lib/parser';
+import { Song } from 'src/lib/models';
 import { SongsList } from 'src/pages/songs-list';
 
 export interface SongsPageProps extends PageProps {
-    leaderboards: SongLeaderboard[];
+    songs: Song[];
     route?: string;
 }
 
@@ -17,7 +17,7 @@ export class SongsPage extends Page<SongsPageProps> {
         return (
             <SongsList
                 route={this.props.route}
-                leaderboards={this.props.leaderboards}
+                songs={this.props.songs}
             />
         );
     }

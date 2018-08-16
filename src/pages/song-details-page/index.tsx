@@ -9,13 +9,12 @@ import * as React from 'react';
 import { Card } from 'src/components/card';
 import { Page, PageProps } from 'src/components/page';
 import {
-    Score,
-    SongLeaderboard,
-} from 'src/lib/parser';
+    Song, SongDetails, SongScore,
+} from 'src/lib/models';
 import { dateToTimeDifferenceInWords, titleArtistString } from 'src/utils/string-utils';
 
 export interface SongDetailsPageProps extends PageProps {
-    songInformation: SongLeaderboard,
+    song: Song,
 }
 
 interface ScoreRow {
@@ -37,20 +36,21 @@ export class SongDetailsPage extends Page<SongDetailsPageProps> {
     }
 
     private renderContentHeader = (): JSX.Element => {
-        const { title, artist, author } = this.props.songInformation;
+        const { title, artist, author } = this.props.song;
         return (
             <Card>
                 <div>{titleArtistString(title, artist)}</div>
-                { author && <div><sub>{author}</sub></div> }
+                { author && <div><small>{author}</small></div> }
             </Card>
         );
     }
 
     private renderContentTables = (): JSX.Element => {
-        const { difficultyLeaderboards } = this.props.songInformation;
-        const lists = Object.keys(difficultyLeaderboards)
-            .map(key => difficultyLeaderboards[key])
-            .map(difficultyLeaderboard => {
+        const { detailsByDifficulty } = this.props.song;
+        const lists = Object.keys(detailsByDifficulty)
+            .map(key => detailsByDifficulty[key])
+            .reverse()
+            .map((difficultyLeaderboard: SongDetails) => {
                 const { difficulty, scores } = difficultyLeaderboard;
                 const sortedScores = scores.slice(0).sort((a,b) => b.score - a.score);
                 const scoreRows = sortedScores.map(this.scoreToScoreRow);
@@ -63,12 +63,12 @@ export class SongDetailsPage extends Page<SongDetailsPageProps> {
         );
     }
 
-    private scoreToScoreRow = (score: Score, rank: number): ScoreRow => {
+    private scoreToScoreRow = (score: SongScore, rank: number): ScoreRow => {
         return {
             Rank: String(rank + 1),
             Name: score.playerName,
             Score: `${score.score}${score.fullCombo ? ' (FC)' : ''}`,
-            Time: dateToTimeDifferenceInWords(new Date(score.timestamp * 1000)), // TODO: prettify this
+            Time: dateToTimeDifferenceInWords(new Date(score.timestamp * 1000)),
         }
     }
 

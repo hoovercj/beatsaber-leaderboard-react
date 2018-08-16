@@ -22,3 +22,8 @@
     width: 100%;
     text-align: center;
 }
+
+
+.page_header_link {
+    padding-left: 10px;
+}
