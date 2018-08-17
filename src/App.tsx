@@ -1,3 +1,4 @@
+import { BeatSaber, IBeatSaber } from 'beatsaber-leaderboard-parser';
 import {
     getTheme,
     ITheme,
@@ -17,8 +18,6 @@ import {
 import 'src/styles/colors.css';
 import 'src/styles/fonts.css';
 
-import { BeatSaber } from 'src/lib/beatsaber';
-import { IBeatSaber } from 'src/lib/models';
 import { IAppInfo } from 'src/models/copyright-info';
 import { PlayersPage } from 'src/pages/players-page';
 import { SongDetailsPage } from 'src/pages/song-details-page';

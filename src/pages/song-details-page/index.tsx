@@ -1,4 +1,7 @@
 import {
+    Song, SongDetails, SongScore,
+} from 'beatsaber-leaderboard-parser';
+import {
     ConstrainMode,
     DetailsList,
     // DetailsListLayoutMode,
@@ -8,9 +11,6 @@ import * as React from 'react';
 
 import { Card } from 'src/components/card';
 import { Page, PageProps } from 'src/components/page';
-import {
-    Song, SongDetails, SongScore,
-} from 'src/lib/models';
 import { dateToTimeDifferenceInWords, titleArtistString } from 'src/utils/string-utils';
 
 export interface SongDetailsPageProps extends PageProps {

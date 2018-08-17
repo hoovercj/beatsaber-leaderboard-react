@@ -1,10 +1,10 @@
+import { Player } from 'beatsaber-leaderboard-parser';
 import * as React from 'react';
 
 import {
     Page,
     PageProps,
 } from 'src/components/page';
-import { Player } from 'src/lib/models';
 import { PlayersList } from 'src/pages/players-list';
 
 export interface PlayersPageProps extends PageProps {

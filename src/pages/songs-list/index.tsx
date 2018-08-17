@@ -1,9 +1,9 @@
+import { Song, SongDetails } from 'beatsaber-leaderboard-parser';
 import * as React from 'react';
 
 import { KpiData } from 'src/components/kpi';
 import { SummaryCardProps } from 'src/components/summary-card/index';
 import { SummaryList } from 'src/components/summary-list';
-import { Song, SongDetails } from 'src/lib/models';
 import { titleArtistString } from 'src/utils/string-utils';
 
 export interface SongsListProps {

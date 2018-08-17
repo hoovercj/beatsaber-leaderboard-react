@@ -1,8 +1,8 @@
+import { Player, PlayerDetails } from 'beatsaber-leaderboard-parser';
 import * as React from 'react';
 
 import { SummaryCardProps } from 'src/components/summary-card/index';
 import { SummaryList } from 'src/components/summary-list';
-import { Player, PlayerDetails } from 'src/lib/models';
 
 export interface PlayersListProps {
     players: Player[];
