@@ -24,6 +24,7 @@
 }
 
 
-.page_header_link {
+.page-header .page_header_link,
+.page-header a.page_header_link {
     padding-left: 10px;
 }
