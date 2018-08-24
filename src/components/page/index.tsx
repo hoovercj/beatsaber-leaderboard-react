@@ -12,6 +12,7 @@ import { IAppInfo } from 'src/models/copyright-info';
 
 export interface PageProps {
     applicationInfo: IAppInfo;
+    rootUrl: string;
 }
 
 export abstract class Page<T extends PageProps = PageProps, S = {}> extends React.Component<T, S> {
@@ -27,9 +28,9 @@ export abstract class Page<T extends PageProps = PageProps, S = {}> extends Reac
 
     protected renderHeader() {
         return (
-            <PageHeader pageTitle={this.props.applicationInfo.applicationName}>
-                <Link className='page_header_link' to='/songs'>Songs</Link>
-                <Link className='page_header_link' to='/players'>Players</Link>
+            <PageHeader rootUrl={this.props.rootUrl} pageTitle={this.props.applicationInfo.applicationName}>
+                <Link className={`${this.headerClass()}_link`} to={`${this.props.rootUrl}/songs`}>Songs</Link>
+                <Link className={`${this.headerClass()}_link`} to={`${this.props.rootUrl}/players`}>Players</Link>
             </PageHeader>
         );
     }
@@ -47,7 +48,7 @@ export abstract class Page<T extends PageProps = PageProps, S = {}> extends Reac
     }
 
     protected headerClass(): string {
-        return 'page_header';
+        return 'page-header';
     }
 
     protected contentClass(): string {

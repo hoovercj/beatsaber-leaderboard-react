@@ -40,6 +40,7 @@
 .page-footer_link {
     text-align: center;
     font: inherit;
+    border: 0;
 }
 
 @media only screen and (max-width: 600px) {

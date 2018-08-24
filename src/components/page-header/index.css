@@ -17,3 +17,8 @@
     display: flex;
     align-content: center;
 }
+
+.page-header .page-header_link,
+.page-header a.page-header_link {
+    padding-left: 10px;
+}

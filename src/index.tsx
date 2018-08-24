@@ -2,7 +2,12 @@ declare module 'prop-types';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { HashRouter } from 'react-router-dom'
+import {
+    HashRouter,
+    Redirect,
+    Route,
+    RouteComponentProps,
+} from 'react-router-dom'
 
 // tslint:disable-next-line
 const axe = require('react-axe');
@@ -21,23 +26,48 @@ const applicationInfo: IAppInfo = {
     githubUrl: process.env.REACT_APP_GITHUB_URL || '',
 }
 
-const scoreProvider = process.env.REACT_APP_BACKEND_URL ?
-    new RemoteFileScoreProvider(process.env.REACT_APP_BACKEND_URL) :
-    new LocalFileScoreProvider;
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const supportMultiTenant = String(process.env.REACT_APP_BACKEND_MULTITENANT).toLowerCase() === 'true';
+const defaultId = process.env.REACT_APP_DEFAULT_ID;
+
+// If we have a backend url, use it
+const useRemoteFileScoreProvider = !!backendUrl;
+
+const scoreProvider = useRemoteFileScoreProvider ?
+    new RemoteFileScoreProvider(backendUrl!) :
+    new LocalFileScoreProvider();
+
+// If we support multi-tenant, then we force users to submit an id to view their leaderboard
+const baseRoute = supportMultiTenant ? '/:id?' : '';
 
 // TODO: Enable ASAP to ensure the product is accessible
 if (false && process.env.NODE_ENV !== 'production') {
     axe(React, ReactDOM);
 }
 
+const renderApp = (routeProps: RouteComponentProps<any, any, any>) => {
+    const matchId = routeProps.match.params.id;
+    const useDefaultId = supportMultiTenant && !matchId;
+
+    if (useDefaultId && defaultId) {
+        return (<Redirect to={`/${defaultId}`} />);
+    }
+
+    return (
+        <App
+            applicationInfo={applicationInfo}
+            scoreProvider={scoreProvider}
+            rootUrl={routeProps.match.url || ''}
+            leaderboardId={routeProps.match.params.id}
+        />
+    );
+}
+
 // TODO: Create a logger which is enabled in dev and disabled in prod
 // process.env.NODE_ENV === 'development'
 ReactDOM.render(
     <HashRouter>
-        <App
-            applicationInfo={applicationInfo}
-            scoreProvider={scoreProvider}
-        />
+        <Route path={baseRoute} render={renderApp} />
     </HashRouter>,
     document.getElementById('root') as HTMLElement
 );
