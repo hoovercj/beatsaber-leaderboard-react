@@ -1,0 +1,3 @@
+button.filter-bar_filter-item:not(:hover):not(:active) {
+    background-color: transparent;
+}

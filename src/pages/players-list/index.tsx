@@ -24,7 +24,7 @@ export class PlayersList extends React.Component<PlayersListProps> {
             const { name, fullCombos, detailsByDifficulty } = player;
             return {
                 title: name,
-                subtitle: fullCombos.length > 0 && `${fullCombos.length} Full Combos`,
+                subtitle: fullCombos.length > 0 ? `${fullCombos.length} Full Combos` : '',
                 kpiData: {
                     name: `First Place Scores / Songs Played`,
                     kpis: Object.keys(detailsByDifficulty)

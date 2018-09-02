@@ -134,10 +134,6 @@ class App extends React.Component<AppProps, AppState> {
                 ...currentTheme.palette,
                 neutralPrimary: '#2d2d32',
                 neutralPrimaryAlt: '#606065',
-                themeDark: '#e34402',
-                themeDarkAlt: '#c93d02',
-                themeDarker: '#a63201',
-                themePrimary: '#fc4c02',
             },
             semanticColors: currentTheme.semanticColors,
         };

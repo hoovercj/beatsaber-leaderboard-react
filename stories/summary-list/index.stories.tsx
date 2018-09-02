@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { AppDecorator } from '../decorators';
 
+import { FilterBar } from 'src/components/filter-bar';
 import { KpiGroupProps } from 'src/components/kpi-group/index';
 import { SummaryCard, SummaryCardProps } from 'src/components/summary-card';
 import { SummaryList } from 'src/components/summary-list';
@@ -48,4 +49,23 @@ storiesOf('Summaries and KPIs', module)
   .add('Summary List', () => <SummaryList
       summaries={generateSummaryCards()}
     />
-  );
+  )
+  .add('Search Filter', () => <FilterBar
+        onSearch={console.log}
+        filters={[{
+            label: 'Difficulty',
+            options: [{
+                label: 'Expert',
+                active: true,
+            },{
+                label: 'Hard',
+                active: false,
+            },{
+                label: 'Easy',
+                active: true,
+            }],
+            onChange: console.log,
+        }]}
+    />
+  )
+;

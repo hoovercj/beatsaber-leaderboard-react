@@ -19,6 +19,7 @@
     "date-fns": "1.29.0",
     "es6-promise": "^4.2.4",
     "gh-pages": "1.2.0",
+    "lodash": "4.17.10",
     "office-ui-fabric-react": "6.26.0",
     "portable-fetch": "^3.0.0",
     "react": "^16.4.1",
@@ -37,19 +38,20 @@
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.10",
+    "@storybook/addon-info": "^3.4.10",
+    "@storybook/addon-links": "^3.4.10",
+    "@storybook/addons": "^3.4.10",
+    "@storybook/react": "^3.4.10",
     "@types/jest": "^23.1.4",
+    "@types/lodash": "^4.14.116",
     "@types/node": "^10.5.2",
     "@types/react": "^16.4.6",
     "@types/react-dom": "^16.0.6",
-    "typescript": "^2.9.2",
-    "react-axe": "3.0.1",
-    "@storybook/react": "^3.4.10",
-    "@storybook/addon-actions": "^3.4.10",
-    "@storybook/addon-links": "^3.4.10",
-    "@storybook/addons": "^3.4.10",
-    "@storybook/addon-info": "^3.4.10",
-    "react-docgen-typescript-webpack-plugin": "1.1.0",
     "babel-core": "^6.26.3",
-    "babel-runtime": "^6.26.0"
+    "babel-runtime": "^6.26.0",
+    "react-axe": "3.0.1",
+    "react-docgen-typescript-webpack-plugin": "1.1.0",
+    "typescript": "^2.9.2"
   }
 }
