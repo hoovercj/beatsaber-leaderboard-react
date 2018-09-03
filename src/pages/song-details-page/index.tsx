@@ -67,7 +67,7 @@ export class SongDetailsPage extends Page<SongDetailsPageProps> {
         return {
             Rank: String(rank + 1),
             Name: score.playerName,
-            Score: `${score.score}${score.fullCombo ? ' (FC)' : ''}`,
+            Score: `${score.score.toLocaleString()}${score.fullCombo ? ' (FC)' : ''}`,
             Time: dateToTimeDifferenceInWords(new Date(score.timestamp * 1000)),
         }
     }
