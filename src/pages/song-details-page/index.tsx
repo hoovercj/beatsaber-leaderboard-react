@@ -67,13 +67,13 @@ export class SongDetailsPage extends Page<SongDetailsPageProps> {
         return {
             Rank: String(rank + 1),
             Name: score.playerName,
-            Score: `${score.score}${score.fullCombo ? ' (FC)' : ''}`,
+            Score: `${score.score.toLocaleString()}${score.fullCombo ? ' (FC)' : ''}`,
             Time: dateToTimeDifferenceInWords(new Date(score.timestamp * 1000)),
         }
     }
 
     private renderDetailsList = (title: string, items: any[]): JSX.Element => {
-        return (
+        return items && (
             <Card key={title}>
                 <div>{title}</div>
                 <DetailsList
