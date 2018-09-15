@@ -23,6 +23,7 @@ import { PlayersPage } from 'src/pages/players-page';
 import { SongDetailsPage } from 'src/pages/song-details-page';
 import { SongsPage } from 'src/pages/songs-page';
 import { BeatSaberFileProvider } from 'src/services/score-provider';
+import { PlayerDetailsPage } from './pages/player-details-page/index';
 
 interface AppProps {
     applicationInfo: IAppInfo;
@@ -63,12 +64,21 @@ class App extends React.Component<AppProps, AppState> {
         }
         return (
             <Switch>
-                <Route key={'songDetails'} exact={true} path={`${this.props.rootUrl || ''}/songs/:id`}  render={this.renderSongDetailsPage } />
-                <Route key={'songsList'} exact={true} path={`${this.props.rootUrl || ''}/songs`} render={this.renderSongsPage} />
-                <Route key={'player'} exact={true} path={`${this.props.rootUrl || ''}/players`} render={this.renderPlayersPage} />
-                <Route key={'song-details'} render={this.renderRoot} />
+                <Route key={'songDetailsRoute'} exact={true} path={`${this.songsListRoute}/:id`}  render={this.renderSongDetailsPage } />
+                <Route key={'playerDetailsRoute'} exact={true} path={`${this.playersListRoute}/:id`} render={this.renderPlayerDetailsPage} />
+                <Route key={'songsListRoute'} exact={true} path={this.songsListRoute} render={this.renderSongsPage} />
+                <Route key={'playersListRoute'} exact={true} path={this.playersListRoute} render={this.renderPlayersPage} />
+                <Route key={'rootRoute'} render={this.renderRoot} />
             </Switch>
         );
+    }
+
+    private get playersListRoute() {
+        return `${this.props.rootUrl || ''}/players`;
+    }
+
+    private get songsListRoute() {
+        return `${this.props.rootUrl || ''}/songs`;
     }
 
     private initializeBeatSaber = async () => {
@@ -115,13 +125,36 @@ class App extends React.Component<AppProps, AppState> {
         return songInformation ?
             (
                 <SongDetailsPage
-                    key='songs'
+                    key='songDetailsPage'
                     rootUrl={this.props.rootUrl}
                     applicationInfo={this.props.applicationInfo}
                     song={songInformation}
                 />
             ) :
-            <Redirect to={`${this.props.rootUrl}/songs`}/>
+            <Redirect to={this.songsListRoute}/>
+    }
+
+    private renderPlayerDetailsPage = (routeProps: RouteComponentProps<any, any, any>) => {
+        if (!this.state.beatSaber) {
+            return null;
+        }
+
+        const playerName = routeProps.match.params.id as string;
+
+        const playerInformation = this.state.beatSaber.player(playerName && playerName.toUpperCase());
+
+        return playerInformation ?
+            (
+                <PlayerDetailsPage
+                    beatSaber={this.state.beatSaber}
+                    key='playerDetailsPage'
+                    rootUrl={this.props.rootUrl}
+                    applicationInfo={this.props.applicationInfo}
+                    player={playerInformation}
+                    songsRoute={this.songsListRoute}
+                />
+            ) :
+            <Redirect to={this.playersListRoute}/>
     }
 
     private getCustomTheme = (): ITheme => {

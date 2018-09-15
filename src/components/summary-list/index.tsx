@@ -10,6 +10,7 @@ import {
 } from 'src/components/summary-card';
 
 export interface SummaryListProps {
+    renderHeader?: () => JSX.Element;
     summaries: SummaryCardProps[];
 }
 
@@ -27,7 +28,8 @@ export class SummaryList extends React.Component<SummaryListProps, SummaryListSt
 
     public render() {
         return (
-            <div className='summary-list_container '>
+            <div className='summary-list_container'>
+                {this.props.renderHeader && this.props.renderHeader()}
                 <FilterBar
                     onSearch={this.onSearch}
                 />
@@ -48,11 +50,11 @@ export class SummaryList extends React.Component<SummaryListProps, SummaryListSt
         }
 
         return this.props.summaries.filter(summary => {
-            return summary.title.toLowerCase().indexOf(searchText) >= 0
-                || summary.subtitle.toLowerCase().indexOf(searchText) >= 0
+            return summary.title.toString().toLowerCase().indexOf(searchText) >= 0
+                || summary.subtitle.toString().toLowerCase().indexOf(searchText) >= 0
                 || summary.kpiData.kpis.findIndex(kpi => {
-                    return kpi.name.toLowerCase().indexOf(searchText) >= 0
-                        || kpi.value.toLowerCase().indexOf(searchText) >= 0;
+                    return kpi.name.toString().toLowerCase().indexOf(searchText) >= 0
+                        || kpi.value.toString().toLowerCase().indexOf(searchText) >= 0;
                 }) >= 0
         });
     }

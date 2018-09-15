@@ -7,7 +7,7 @@ import {
 } from 'src/components/kpi';
 
 export interface KpiGroupProps {
-    name: string;
+    name?: string;
     kpis: KpiData[];
 }
 

@@ -11,7 +11,11 @@ import * as React from 'react';
 
 import { Card } from 'src/components/card';
 import { Page, PageProps } from 'src/components/page';
-import { dateToTimeDifferenceInWords, titleArtistString } from 'src/utils/string-utils';
+import {
+    dateToTimeDifferenceInWords,
+    scoreString,
+    titleArtistString,
+} from 'src/utils/string-utils';
 
 export interface SongDetailsPageProps extends PageProps {
     song: Song,
@@ -67,7 +71,7 @@ export class SongDetailsPage extends Page<SongDetailsPageProps> {
         return {
             Rank: String(rank + 1),
             Name: score.playerName,
-            Score: `${score.score.toLocaleString()}${score.fullCombo ? ' (FC)' : ''}`,
+            Score: scoreString(score.score, score.fullCombo),
             Time: dateToTimeDifferenceInWords(new Date(score.timestamp * 1000)),
         }
     }

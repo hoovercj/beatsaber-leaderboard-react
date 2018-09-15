@@ -24,6 +24,9 @@ export class PlayersList extends React.Component<PlayersListProps> {
             const { name, fullCombos, detailsByDifficulty } = player;
             return {
                 title: name,
+                titleLink: this.props.route ?
+                    `${this.props.route}/${name}` :
+                    undefined,
                 subtitle: fullCombos.length > 0 ? `${fullCombos.length} Full Combos` : '',
                 kpiData: {
                     name: `First Place Scores / Songs Played`,
