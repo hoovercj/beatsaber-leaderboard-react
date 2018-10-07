@@ -1,6 +1,8 @@
 import * as React from 'react';
 import './index.css';
 
+import { Link } from 'src/components/link';
+
 export interface KpiData {
     name: string;
     value: string;
@@ -26,11 +28,15 @@ export class Kpi extends React.Component<KpiProps> {
     }
 
     private renderValue(): JSX.Element {
+        const ValueComponent = this.props.valueLink ? Link : 'span';
         const renderValueCore = () => (
             <React.Fragment>
-                <span className='kpi_value'>
+                <ValueComponent
+                    to={this.props.valueLink}
+                    className='kpi_value'
+                >
                     {this.props.value}
-                </span>
+                </ValueComponent>
                 {this.props.subvalue && (
                     <span className='kpi_subvalue'>{this.props.subvalue}</span>
                 )}

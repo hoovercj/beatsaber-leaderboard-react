@@ -9,6 +9,7 @@ import { titleArtistString } from 'src/utils/string-utils';
 export interface SongsListProps {
     songs: Song[];
     route?: string;
+    playersRoute?: string;
 }
 
 export class SongsList extends React.Component<SongsListProps> {
@@ -34,10 +35,14 @@ export class SongsList extends React.Component<SongsListProps> {
                     const subvalue = `1st of ${songDetails.summary.players.length}`;
 
                     const value = `${topPlayer}${topPlayerFullCombo ? ' (FC)' : ''}`;
+                    const valueLink = this.props.playersRoute ?
+                        `${this.props.playersRoute}/${topPlayer}` :
+                        undefined;
 
                     return {
                         name: songDetails.difficulty,
                         value,
+                        valueLink,
                         subvalue,
                     } as KpiData;
                 });
