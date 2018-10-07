@@ -10,6 +10,7 @@ import { SongsList } from 'src/pages/songs-list';
 export interface SongsPageProps extends PageProps {
     songs: Song[];
     route?: string;
+    playersRoute?: string;
 }
 
 export class SongsPage extends Page<SongsPageProps> {
@@ -18,6 +19,7 @@ export class SongsPage extends Page<SongsPageProps> {
             <SongsList
                 route={this.props.route}
                 songs={this.props.songs}
+                playersRoute={this.props.playersRoute}
             />
         );
     }

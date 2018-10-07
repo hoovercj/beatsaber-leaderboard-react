@@ -95,6 +95,7 @@ class App extends React.Component<AppProps, AppState> {
                 route={routeProps.match.path}
                 applicationInfo={this.props.applicationInfo}
                 songs={this.state.beatSaber.songsByNumberOfPlayers()}
+                playersRoute={this.playersListRoute}
             />
         )
     }
