@@ -19,9 +19,7 @@ export interface TimelineItem {
 }
 
 /*
-Default homepage, instead of songs
-Nicer date format, maybe use the Date-fns library as in songs list.
-Search for cody, there is a bug where too many KPIs shows up.
+TODO: Default homepage, instead of songs
 */
 
 export class TimelineList extends React.Component<TimelineListProps> {
