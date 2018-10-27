@@ -65,7 +65,7 @@ class App extends React.Component<AppProps, AppState> {
         }
         return (
             <Switch>
-                <Route key={'songDetailsRoute'} exact={true} path={`${this.songsListRoute}/:id`}  render={this.renderSongDetailsPage } />
+                <Route key={'songDetailsRoute'} exact={true} path={`${this.songsListRoute}/:id`} render={this.renderSongDetailsPage } />
                 <Route key={'playerDetailsRoute'} exact={true} path={`${this.playersListRoute}/:id`} render={this.renderPlayerDetailsPage} />
                 <Route key={'songsListRoute'} exact={true} path={this.songsListRoute} render={this.renderSongsPage} />
                 <Route key={'playersListRoute'} exact={true} path={this.playersListRoute} render={this.renderPlayersPage} />
@@ -130,7 +130,7 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     private renderRoot = () => {
-        return <Redirect to={`${this.props.rootUrl}/songs`}/>;
+        return <Redirect to={`${this.props.rootUrl}/timeline`}/>;
     }
 
     private renderSongDetailsPage = (routeProps: RouteComponentProps<any, any, any>) => {

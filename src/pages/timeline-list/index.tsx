@@ -15,12 +15,8 @@ export interface TimelineItem {
     song: Song;
     score: SongScore;
     difficulty: Difficulty;
-    previousBest: SongScore | null;
+    AtTheTimeBest: SongScore | null; // Doesn't include the song itself. Is Null if first on the leaderboard.
 }
-
-/*
-TODO: Default homepage, instead of songs
-*/
 
 export class TimelineList extends React.Component<TimelineListProps> {
     public render() {
@@ -44,12 +40,12 @@ export class TimelineList extends React.Component<TimelineListProps> {
                 subvalue
             }];
 
-            if(item.previousBest != null)
+            if(item.AtTheTimeBest != null)
             {
                 kpis.push({
                     name: item.difficulty,
-                    value: `${item.previousBest.playerName}${item.previousBest.fullCombo ? ' (FC)' : ''}`,
-                    subvalue: `${item.previousBest.score.toLocaleString()}`
+                    value: `${item.AtTheTimeBest.playerName}${item.AtTheTimeBest.fullCombo ? ' (FC)' : ''}`,
+                    subvalue: `${item.AtTheTimeBest.score.toLocaleString()}`
                 });
             }
 
@@ -68,20 +64,20 @@ export class TimelineList extends React.Component<TimelineListProps> {
         const date = new Date(0);
         date.setUTCSeconds(item.score.timestamp);
 
-        if(item.previousBest != null)
+        if(item.AtTheTimeBest != null)
         {
-            if(item.score.playerName === item.previousBest.playerName)
+            if(item.score.playerName === item.AtTheTimeBest.playerName)
             {
-                if(item.score.score > item.previousBest.score) {
+                if(item.score.score > item.AtTheTimeBest.score) {
                     return `${item.score.playerName} beat their own best score ${dateToTimeDifferenceInWords(date)}.`;
                 } else {
                     return `${item.score.playerName} didn't set a good enough score to beat itself from being the leader ${dateToTimeDifferenceInWords(date)}.`;
                 }
             } else {
-                if(item.score.score > item.previousBest.score) {
-                    return `${item.score.playerName} beat the previous best player ${item.previousBest.playerName} ${dateToTimeDifferenceInWords(date)}.`;
+                if(item.score.score > item.AtTheTimeBest.score) {
+                    return `${item.score.playerName} beat the previous best player ${item.AtTheTimeBest.playerName} ${dateToTimeDifferenceInWords(date)}.`;
                 } else {
-                    return `${item.score.playerName} hit the leaderboard but ${item.previousBest.playerName} has a better score ${dateToTimeDifferenceInWords(date)}.`;
+                    return `${item.score.playerName} hit the leaderboard but ${item.AtTheTimeBest.playerName} has a better score ${dateToTimeDifferenceInWords(date)}.`;
                 }
             }
         }
@@ -105,14 +101,13 @@ export class TimelineList extends React.Component<TimelineListProps> {
                 const difficulty: Difficulty = Difficulty[difficultyString];
                 const details = song.detailsByDifficulty[difficulty] as SongDetails;
 
-                // TODO Sort them by TimeStamp, and find the previous best one.
                 const sortedScores = details.scores.sort((n1, n2) => n1.timestamp - n2.timestamp);
                 for (const score of sortedScores) {
                     result.push({
                         song,
                         score,
                         difficulty,
-                        previousBest: this.FindPreviousBest(sortedScores, score)
+                        AtTheTimeBest: this.FindAtTheTimeBest(sortedScores, score)
                     });
                 }
             }
@@ -121,7 +116,7 @@ export class TimelineList extends React.Component<TimelineListProps> {
         return result.sort((n1, n2) => n2.score.timestamp - n1.score.timestamp);
     }
 
-    private FindPreviousBest(scores: SongScore[], refScore: SongScore): SongScore | null {
+    private FindAtTheTimeBest(scores: SongScore[], refScore: SongScore): SongScore | null {
         let previous: SongScore | null = null;
         for (const score of scores) {
             if (score.timestamp >= refScore.timestamp) {
