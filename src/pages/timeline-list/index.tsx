@@ -18,6 +18,13 @@ export interface TimelineItem {
     AtTheTimeBest: SongScore | null; // Doesn't include the song itself. Is Null if first on the leaderboard.
 }
 
+
+/*
+TODO: Make the song name click-able
+TODO: Make the player name click-able.
+TODO: Change the layout
+TODO: "A hit the leaderboard but B has a better score 8 days ago." It is not clear if it is As score or Bs that was made 8 days ago.
+*/
 export class TimelineList extends React.Component<TimelineListProps> {
     public render() {
         return (
