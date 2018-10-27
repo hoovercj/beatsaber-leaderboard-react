@@ -19,13 +19,6 @@ export interface TimelineItem {
 }
 
 /*
-<Player> set the first score.
-<Player> got a FC
-<Player> set the first score and a FC
-<Player> beat <OtherPlayer>
-<Player> beat their own score
-
-
 Default homepage, instead of songs
 Nicer date format, maybe use the Date-fns library as in songs list.
 Search for cody, there is a bug where too many KPIs shows up.
@@ -82,24 +75,24 @@ export class TimelineList extends React.Component<TimelineListProps> {
             if(item.score.playerName === item.previousBest.playerName)
             {
                 if(item.score.score > item.previousBest.score) {
-                    return `${item.score.playerName} beat their own best score ${dateToTimeDifferenceInWords(date)} ago.`;
+                    return `${item.score.playerName} beat their own best score ${dateToTimeDifferenceInWords(date)}.`;
                 } else {
-                    return `${item.score.playerName} didn't set a good enough score to beat itself from being the leader ${dateToTimeDifferenceInWords(date)} ago.`;
+                    return `${item.score.playerName} didn't set a good enough score to beat itself from being the leader ${dateToTimeDifferenceInWords(date)}.`;
                 }
             } else {
                 if(item.score.score > item.previousBest.score) {
-                    return `${item.score.playerName} beat the previous best player ${item.previousBest.playerName} ${dateToTimeDifferenceInWords(date)} ago.`;
+                    return `${item.score.playerName} beat the previous best player ${item.previousBest.playerName} ${dateToTimeDifferenceInWords(date)}.`;
                 } else {
-                    return `${item.score.playerName} hit the leaderboard but ${item.previousBest.playerName} has a better score ${dateToTimeDifferenceInWords(date)} ago.`;
+                    return `${item.score.playerName} hit the leaderboard but ${item.previousBest.playerName} has a better score ${dateToTimeDifferenceInWords(date)}.`;
                 }
             }
         }
 
         if(item.score.fullCombo)
         {
-            return `${item.score.playerName} set the first score on the song and got a FC ${dateToTimeDifferenceInWords(date)} ago.`;
+            return `${item.score.playerName} set the first score on the song and got a FC ${dateToTimeDifferenceInWords(date)}.`;
         }
-        return `${item.score.playerName} set the first score on the song ${dateToTimeDifferenceInWords(date)} ago.`;
+        return `${item.score.playerName} set the first score on the song ${dateToTimeDifferenceInWords(date)}.`;
     }
 
     private ConvertToTimelineData(): TimelineItem[] {
