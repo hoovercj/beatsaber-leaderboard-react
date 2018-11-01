@@ -24,6 +24,7 @@ import { SongDetailsPage } from 'src/pages/song-details-page';
 import { SongsPage } from 'src/pages/songs-page';
 import { BeatSaberFileProvider } from 'src/services/score-provider';
 import { PlayerDetailsPage } from './pages/player-details-page/index';
+import { TimelinePage } from './pages/timeline-page/index';
 
 interface AppProps {
     applicationInfo: IAppInfo;
@@ -64,10 +65,11 @@ class App extends React.Component<AppProps, AppState> {
         }
         return (
             <Switch>
-                <Route key={'songDetailsRoute'} exact={true} path={`${this.songsListRoute}/:id`}  render={this.renderSongDetailsPage } />
+                <Route key={'songDetailsRoute'} exact={true} path={`${this.songsListRoute}/:id`} render={this.renderSongDetailsPage } />
                 <Route key={'playerDetailsRoute'} exact={true} path={`${this.playersListRoute}/:id`} render={this.renderPlayerDetailsPage} />
                 <Route key={'songsListRoute'} exact={true} path={this.songsListRoute} render={this.renderSongsPage} />
                 <Route key={'playersListRoute'} exact={true} path={this.playersListRoute} render={this.renderPlayersPage} />
+                <Route key={'timelineRoute'} exact={true} path={this.timelineListRoute} render={this.renderTimelinePage} />
                 <Route key={'rootRoute'} render={this.renderRoot} />
             </Switch>
         );
@@ -79,6 +81,10 @@ class App extends React.Component<AppProps, AppState> {
 
     private get songsListRoute() {
         return `${this.props.rootUrl || ''}/songs`;
+    }
+
+    private get timelineListRoute() {
+        return `${this.props.rootUrl || ''}/timeline`;
     }
 
     private initializeBeatSaber = async () => {
@@ -111,8 +117,22 @@ class App extends React.Component<AppProps, AppState> {
         )
     }
 
+    private renderTimelinePage = (routeProps: RouteComponentProps<any, any, any>) => {
+        return this.state.beatSaber && (
+            <TimelinePage
+                key='timeline'
+                rootUrl={this.props.rootUrl}
+                route={routeProps.match.path}
+                applicationInfo={this.props.applicationInfo}
+                songs={this.state.beatSaber.songs()}
+                playersRoute={this.playersListRoute}
+                songsRoute={this.songsListRoute}
+            />
+        )
+    }
+
     private renderRoot = () => {
-        return <Redirect to={`${this.props.rootUrl}/songs`}/>;
+        return <Redirect to={`${this.props.rootUrl}/timeline`}/>;
     }
 
     private renderSongDetailsPage = (routeProps: RouteComponentProps<any, any, any>) => {
