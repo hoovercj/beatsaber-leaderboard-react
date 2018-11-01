@@ -9,6 +9,8 @@ import { dateToTimeDifferenceInWords, titleArtistString } from 'src/utils/string
 export interface TimelineListProps {
     songs: Song[];
     route?: string;
+    playersRoute?: string;
+    songsRoute?: string;
 }
 
 export interface TimelineItem {
@@ -44,7 +46,9 @@ export class TimelineList extends React.Component<TimelineListProps> {
             const kpis: KpiData[] = [{
                 name: item.difficulty,
                 value,
-                subvalue
+                // valueLink: this.props.playersRoute ? `${this.props.playersRoute}/${item.score.playerName}` : undefined,  // Blocked by PR 13
+                subvalue,
+                key: 'NewScore'
             }];
 
             if(item.AtTheTimeBest != null)
@@ -52,13 +56,16 @@ export class TimelineList extends React.Component<TimelineListProps> {
                 kpis.push({
                     name: item.difficulty,
                     value: `${item.AtTheTimeBest.playerName}${item.AtTheTimeBest.fullCombo ? ' (FC)' : ''}`,
-                    subvalue: `${item.AtTheTimeBest.score.toLocaleString()}`
+                    // valueLink: this.props.playersRoute ? `${this.props.playersRoute}/${item.AtTheTimeBest.playerName}` : undefined,  // Blocked by PR 13
+                    subvalue: `${item.AtTheTimeBest.score.toLocaleString()}`,
+                    key: 'AtTheTimeBest'
                 });
             }
 
             return {
                 title: titleArtistString(item.song.title, item.song.artist),
-                subtitle: item.song.artist || undefined,
+                titleLink: this.props.songsRoute ? `${this.props.songsRoute}/${item.song.id}` : undefined,
+                subtitle: item.song.author || undefined,
                 kpiData: {
                     name: timestamp,
                     kpis,
@@ -75,17 +82,9 @@ export class TimelineList extends React.Component<TimelineListProps> {
         {
             if(item.score.playerName === item.AtTheTimeBest.playerName)
             {
-                if(item.score.score > item.AtTheTimeBest.score) {
-                    return `${item.score.playerName} beat their own best score ${dateToTimeDifferenceInWords(date)}.`;
-                } else {
-                    return `${item.score.playerName} didn't set a good enough score to beat itself from being the leader ${dateToTimeDifferenceInWords(date)}.`;
-                }
+                return `${item.score.playerName} beat their own best score ${dateToTimeDifferenceInWords(date)}.`;
             } else {
-                if(item.score.score > item.AtTheTimeBest.score) {
-                    return `${item.score.playerName} beat the previous best player ${item.AtTheTimeBest.playerName} ${dateToTimeDifferenceInWords(date)}.`;
-                } else {
-                    return `${item.score.playerName} hit the leaderboard but ${item.AtTheTimeBest.playerName} has a better score ${dateToTimeDifferenceInWords(date)}.`;
-                }
+                return `${item.score.playerName} beat the previous best player ${item.AtTheTimeBest.playerName} ${dateToTimeDifferenceInWords(date)}.`;
             }
         }
 
@@ -110,12 +109,16 @@ export class TimelineList extends React.Component<TimelineListProps> {
 
                 const sortedScores = details.scores.sort((n1, n2) => n1.timestamp - n2.timestamp);
                 for (const score of sortedScores) {
-                    result.push({
-                        song,
-                        score,
-                        difficulty,
-                        AtTheTimeBest: this.FindAtTheTimeBest(sortedScores, score)
-                    });
+                    const bestScore = this.GetBestScoreBefore(sortedScores, score.timestamp);
+                    if(bestScore == null || score.score > bestScore.score)
+                    {
+                        result.push({
+                            song,
+                            score,
+                            difficulty,
+                            AtTheTimeBest: bestScore
+                        });
+                    }
                 }
             }
         }
@@ -123,10 +126,10 @@ export class TimelineList extends React.Component<TimelineListProps> {
         return result.sort((n1, n2) => n2.score.timestamp - n1.score.timestamp);
     }
 
-    private FindAtTheTimeBest(scores: SongScore[], refScore: SongScore): SongScore | null {
+    private GetBestScoreBefore(scores: SongScore[], timestamp: number): SongScore | null {
         let previous: SongScore | null = null;
         for (const score of scores) {
-            if (score.timestamp >= refScore.timestamp) {
+            if (score.timestamp >= timestamp) {
                 return previous
             }
 

@@ -7,6 +7,7 @@ export interface KpiData {
     valueLink?: string;
     subvalue?: string;
     inlineValue?: boolean;
+    key?: string;
 }
 
 // tslint:disable-next-line

@@ -33,8 +33,9 @@ export class KpiGroup extends React.Component<KpiGroupProps> {
     }
 
     private renderKpi = (kpi: KpiData, showBorder: boolean = true) => {
+        const key = kpi.key ? kpi.key : kpi.name;
         return (
-            <div key={kpi.name + kpi.subvalue + kpi.inlineValue} className={'kpi-group_stat-wrapper'}>
+            <div key={key} className={'kpi-group_stat-wrapper'}>
                 <div className={'kpi-group_stat'}>
                     <Kpi {...kpi} />
                 </div>
